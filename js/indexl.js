@@ -19,7 +19,7 @@ var S = {
     if (i !== -1) {
       S.UI.simulate(decodeURI(action).substring(i + 3));
     } else {
-      S.UI.simulate(`Hi 妲菲|现在为北京时间|2025.03.20 00:00:00|生日快乐|#countdown 3||`);
+      S.UI.simulate(`Hi 怡霖|现在为北京时间|2025.04.11 00:00:00|生日快乐|#countdown 3||`);
     }
 
     S.Drawing.loop(function () {

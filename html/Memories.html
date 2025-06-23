@@ -157,7 +157,7 @@
 
           <!-- 互动式五月天歌词时间线 -->
           <div class="mayday-timeline" style="position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 100%; background: transparent; border-radius: 15px; padding: 20px; z-index: 100;">
-            <h3 style="text-align: center; color: #f5b663; font-size: 22px;">我们的五月天时光机</h3>
+            <h3 style="text-align: center; color: #f5b663; font-size: 22px;">我们的歌曲时光机</h3>
             <div class="timeline-container" style="display: flex; justify-content: space-between; position: relative; margin: 30px 0;">
               <div class="timeline-line" style="position: absolute; top: 15px; left: 0; right: 0; height: 3px; background: #f5b663;"></div>
               
@@ -165,7 +165,7 @@
               <div class="timeline-point" style="position: relative; z-index: 5; text-align: center; cursor: pointer;" data-song="jujiang" onclick="playMaydaySong('jujiang')">
                 <div class="point" style="width: 30px; height: 30px; background: #f5b663; border-radius: 50%; margin: 0 auto;"></div>
                 <div class="year" style="margin-top: 8px; color: #fff; font-weight: bold;">相识</div>
-                <div class="lyrics" style="color: #ccc; font-style: italic; font-size: 14px; margin-top: 5px; width: 150px;">"我和我最后的倔强"</div>
+                <div class="lyrics" style="color: #ccc; font-style: italic; font-size: 14px; margin-top: 5px; width: 150px;">"红果园里度过几轮春夏"</div>
               </div>
               
               <!-- 时间点2: 知足 -->
@@ -179,7 +179,7 @@
               <div class="timeline-point" style="position: relative; z-index: 5; text-align: center; cursor: pointer;" data-song="wenrou" onclick="playMaydaySong('wenrou')">
                 <div class="point" style="width: 30px; height: 30px; background: #f5b663; border-radius: 50%; margin: 0 auto;"></div>
                 <div class="year" style="margin-top: 8px; color: #fff; font-weight: bold;">陪伴</div>
-                <div class="lyrics" style="color: #ccc; font-style: italic; font-size: 14px; margin-top: 5px; width: 150px;">"是谁说过摇滚万岁"</div>
+                <div class="lyrics" style="color: #ccc; font-style: italic; font-size: 14px; margin-top: 5px; width: 150px;">"只是怕我亲手将我的真心葬送"</div>
               </div>
               
               <!-- 时间点4: 如烟 -->
@@ -207,7 +207,7 @@
               const songs = {
                 'jujiang': {
                   path: '../music/mayday-jujiang.mp3',
-                  lyrics: '"我和我最后的倔强，握紧双手绝对不放，下一站是不是天堂，就算失望不能绝望"'
+                  lyrics: '"积秀芳华 思源碑下 一年一年记录你最好的年华"'
                 },
                 'zhizu': {
                   path: '../music/mayday-zhizu.mp3',
@@ -215,7 +215,7 @@
                 },
                 'wenrou': {
                   path: '../music/mayday-wenrou.mp3',
-                  lyrics: '"你问我全世界是哪里最美，答案是你身边"'
+                  lyrics: '"混乱的思绪 是因为太想靠近你"'
                 },
                 'ruyan': {
                   path: '../music/mayday-ruyan.mp3',
@@ -254,13 +254,14 @@
             <div class="ly-txt21" style="width:100%;height:10%;left:10%">
               <img class="ly-img11" src="../img/HappyBirthday.png" style="width:200%;height:100%">
             </div>
-            <div class="ly-txt22" style="left:20%;font-size: 45px">
+            <div class="ly-txt22" style="left:20%;font-size: 35px">
               <p>祝</p>
-              <p>你</p>
+              <p>姐</p>
+              <p>姐</p>
             </div>
             <div class="ly-imgbox21">
               <img class="ly-img21"
-                src="https://img1.baidu.com/it/u=1126911312,3317101426&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500">
+                src="../img/image2.png">
             </div>
           </div>
           <div class="ly-triangle21"></div>
@@ -278,7 +279,7 @@
               <p>永远心飞扬</p>
             </div>
             <div class="ly-imgbox22">
-              <img class="ly-img22" src="../img/cmdx.jpg">
+              <img class="ly-img22" src="../img/image.png">
             </div>
           </div>
           <div class="ly-triangle22"></div>
@@ -286,7 +287,7 @@
           <div class="ly-box23">
             <div class="ly-imgbox23" style="height: 100%">
               <div class="puzzle-game">
-                <h3>五月天拼图挑战</h3>
+                <h3>高贵女王和她的侍从们的拼图挑战</h3>
                 
                 <div class="difficulty-selector">
                   <button class="diff-btn active" onclick="setDifficulty(3)">简单</button>
@@ -297,7 +298,7 @@
                 <div id="puzzle-container" style="display: none;"></div>
                 
                 <div id="preview-image">
-                  <img src="../img/五月天.jpg" alt="五月天专辑封面">
+                  <img src="../img/毕业合照2.png" alt="毕业合照">
             </div>
                 
                 <button id="start-puzzle">开始游戏</button>
@@ -306,8 +307,8 @@
                 
                 <div id="completion-message">
                   <p>恭喜你完成拼图！</p>
-                  <p>"如果岁月可以这样安排，让我们永远不必再告别"</p>
-                  <p>生日快乐，愿你的生活如五月天的音乐一样精彩！</p>
+                  <p>"如果岁月可以这样安排，就让我们永远不必再告别"</p>
+                  <p>生日快乐呀，带着我们所有人以及小狗们的祝福展翅高飞！</p>
             </div>
             </div>
           </div>
@@ -391,7 +392,7 @@
             piece.style.height = pieceSize + 'px';
             piece.style.left = (j * pieceSize) + 'px';
             piece.style.top = (i * pieceSize) + 'px';
-            piece.style.backgroundImage = "url('../img/五月天.jpg')";
+            piece.style.backgroundImage = "url('../img/毕业合照2.png')";
             piece.style.backgroundSize = `${pieceSize * puzzleSize}px ${pieceSize * puzzleSize}px`;
 
             // 设置背景位置
@@ -548,12 +549,12 @@
             </div>
             <div class="ly-txt32">
               <p>愿你</p>
-              <p>贪吃不胖，努力不负，傻人傻福，</p>
+              <p>贪吃不胖，努力不负，笨人笨福，</p>
               <p>一直幸运。一生努力，一生被爱，</p>
               <p>想要的都拥有，得不到的都释怀。🌈</p>
             </div>
             <div class="ly-imgbox31" style="height:50%">
-              <img class="ly-img31" src="../img/hu1.JPG" style="height:100%">
+              <img class="ly-img31" src="../img/pingpangqiu.jpg" style="height:100%">
             </div>
           </div>
           <div class="ly-triangle31"></div>
@@ -568,12 +569,12 @@
               <p>去许个愿望吧!</p>
             </div>
             <div class="ly-imgbox311">
-              <img class="ly-img31" src="../img/axinchagge.jpg" style="height:100%">
+              <img class="ly-img31" src="../img/tujiangehuihezhao.png" style="height:100%">
             </div>
          
               <!-- 猜歌词小游戏 -->
-          <div class="lyrics-game" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); width: 100%; background: rgba(0,0,0,0.8); border-radius: 15px; padding: 10px; z-index: 100; text-align: center;">
-            <h3 style="color: #f5b663; margin-bottom: 15px; font-size: 22px;">猜猜五月天歌词</h3>
+          <div class="lyrics-game" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); width: 100%; background: rgba(108, 107, 107, 0.8); padding: 0px; z-index: 100; text-align: center;">
+            <h3 style="color: #f5b663; margin-bottom: 15px; font-size: 20px;margin: 0 auto;">猜猜我们听过的歌词</h3>
             
             <div id="game-container">
               <div id="game-intro" style="color: #fff; margin-bottom: 20px;">
@@ -611,10 +612,10 @@
               
               <div id="game-complete" style="display: none; color: #fff;">
                 <p style="font-size: 20px; margin-bottom: 15px;">恭喜你完成了所有挑战！</p>
-                <div style="background: url('../img/axincaomei.jpg') no-repeat center; background-size: cover; width: 300px; height: 200px; margin: 0 auto 20px; border-radius: 10px; position: relative;">
+                <div style="background: url('../img/zipai.jpg') no-repeat center; background-size: cover; width: 300px; height: 200px; margin: 0 auto 20px; border-radius: 10px; position: relative;">
                   <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: transparent; padding: 15px; border-radius: 10px; width: 80%;">
-                    <p style="color: #f5b663; font-size: 18px;">五月天陪你一起过生日！</p>
-                    <p style="color: #fff; font-size: 16px; margin-top: 10px;">愿你如《倔强》般坚定，像《知足》般快乐，如《温柔》般美好！</p>
+                    <p style="color: #f5b663; font-size: 18px;">今天我陪你一起过生日！</p>
+                    <p style="color: #fff; font-size: 13px; margin-top: 90px;">愿你如《七里香》般温暖，像《凤凰花开的路口》般珍惜，如《太聪明》般真心！</p>
                   </div>
                 </div>
                 <button id="restart-game" style="background: #f5b663; border: none; color: #333; padding: 8px 20px; border-radius: 20px; cursor: pointer; margin-top: 10px;">再玩一次</button>
@@ -631,10 +632,10 @@
             // 歌曲数据
             const lyricsQuestions = [
               {
-                songTitle: "倔强",
-                audioSrc: "../music/juejiang.MP3",
-                lyrics: "这一次为自己___，就这一次 我和我的倔强",
-                answer: "疯狂",
+                songTitle: "七里香",
+                audioSrc: "../music/七里香.MP3",
+                lyrics: "那温暖的___像刚摘的鲜艳草莓 你说你舍不掉吃掉这一种感觉",
+                answer: "阳光",
                 hint: ""
               },
               {
@@ -645,10 +646,10 @@
                 hint: ""
               },
               {
-                songTitle: "温柔",
-                audioSrc: "../music/wenrou.MP3",
-                lyrics: "不打扰，是我的___",
-                answer: "温柔",
+                songTitle: "凤凰花开的路口",
+                audioSrc: "../music/凤凰花开的路口.MP3",
+                lyrics: "脑海之中有一个凤凰花开的路口 有我最___的朋友",
+                answer: "珍惜",
                 hint: ""
               },
               {
@@ -658,25 +659,25 @@
                 answer: "生命",
                 hint: ""
               },
+              // {
+              //   songTitle: "突然好想你",
+              //   audioSrc: "../music/turanhaoxiangni.MP3",
+              //   lyrics: "___，你会在哪里，过得快乐或委屈",
+              //   answer: "突然好想你",
+              //   hint: ""
+              // },
+              // {
+              //   songTitle: "我不愿 让你一个人",
+              //   audioSrc: "../music/wobuyuanrangniyigeren.MP3",
+              //   lyrics: "我不愿 你独自走过 ___的时分",
+              //   answer: "风雨",
+              //   hint: ""
+              // },
               {
-                songTitle: "突然好想你",
-                audioSrc: "../music/turanhaoxiangni.MP3",
-                lyrics: "___，你会在哪里，过得快乐或委屈",
-                answer: "突然好想你",
-                hint: ""
-              },
-              {
-                songTitle: "我不愿 让你一个人",
-                audioSrc: "../music/wobuyuanrangniyigeren.MP3",
-                lyrics: "我不愿 你独自走过 ___的时分",
-                answer: "风雨",
-                hint: ""
-              },
-              {
-                songTitle: "你不是真正的快乐",
-                audioSrc: "../music/nibushizhenzhengdekuaile.MP3",
-                lyrics: "你值得真正的___，你应该脱下你穿的保护色",
-                answer: "快乐",
+                songTitle: "太聪明",
+                audioSrc: "../music/太聪明.MP3",
+                lyrics: "太聪明的卖弄 只是怕亲手将我的___葬送",
+                answer: "真心",
                 hint: ""
               },
               {
@@ -685,14 +686,14 @@
                 lyrics: "终究会 有一天 ___都变成昨天",
                 answer: "我们",
                 hint: ""
-              },
-              {
-                songTitle: "后来的我们",
-                audioSrc: "../music/houlaidewomen.MP3",
-                lyrics: "后来的我们我___着，泪水中能看到你真的幸福快乐",
-                answer: "期待",
-                hint: ""
-              },
+              }
+              // {
+              //   songTitle: "后来的我们",
+              //   audioSrc: "../music/houlaidewomen.MP3",
+              //   lyrics: "后来的我们我___着，泪水中能看到你真的幸福快乐",
+              //   answer: "期待",
+              //   hint: ""
+              // },
               
             ];
             
@@ -792,7 +793,7 @@
 
                 // 定义 ended 事件处理函数
                 audioEndedHandler = function() {
-                  if (correctAnswers >= 10) {
+                  if (correctAnswers >= 12) {
                     document.getElementById('game-play').style.display = 'none';
                     document.getElementById('game-complete').style.display = 'block';
                   } else {
@@ -828,7 +829,7 @@
               <p class="wwww1">相信你能听懂吧(doge)</p>
             </div>
             <div class="ly-imgbox81">
-              <img class="ly-img81" src="../img/ghibi_image.png">
+              <img class="ly-img81" src="../img/image3.png">
             </div>
           </div>
           <div class="ly-triangle11"></div>
@@ -839,22 +840,21 @@
             </div>
             <div class="ly-txt84">
               <p>哈哈哈还是我来给你翻译一下吧：</p>
-              <p>Hi!妲菲，今天是你的生日!</p>
+              <p>Hi!怡霖!</p>
 
               <p>在这个时刻，首先送上我的祝福，希望2025身体健康，所有的烦恼统统全忘掉。</p>
 
-              <p>虽然又老了一岁（doge），但是希望每天都能开开心心，吃特别多的好吃的，咋吃都不胖，</p>
-              <p>去特别多好玩的地方，咋玩都不会累。哈哈哈</p>
-              <p>在最好的年华，奔走在自己的热爱里。</p>
+              <p>虽然又老了一岁但是希望每天都能开开心心，吃特别多的好吃的，咋吃都不胖。(心情好才能成为大饭桶)</p>
+              <p>去特别多好玩的地方，咋玩都不会累。(我那超级旺盛精力)</p>
+              <p>愿你在最好的年华，奔走在自己的热爱里。</p>
 
               <p>最后我再给你讲个故事</p>
-              <p>有一天啊，有一位大师抓了一只小猪，没留意,让猪给跑了</p>
+              <p>有一天啊，有一位大师抓了一只小猪，没留意，让猪给跑了</p>
               <p>你知道小猪跑哪里去了吗？原来这猪十分的有灵性</p>
-              <p>听见我在讲故事就跑来听故事了 哈哈哈哈哈呵呵哈哈哈（doge）</p>
+              <p>听见我在讲故事就跑来听故事了 哈哈哈哈哈呵呵哈哈哈</p>
               <hr>
-            
-              <p>莞尔一笑，嫣然绽放。捡一朵🌸，哼唱五月天的歌</p>
-               <p>春光易逝，但下一次的丰收之旅，已在《人生海海》中启航！</p>
+              <p>莞尔一笑，嫣然绽放。</p>
+               <p>春光易逝，但依旧期待着下一次的丰收之旅。</p>
               <p><a href="./EasterEgg.html">我劝你不要点这里！！！</a> </p>
               
               <!-- 添加五月天虚拟演唱会链接 -->

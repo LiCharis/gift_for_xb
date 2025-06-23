@@ -118,25 +118,25 @@
 
   <!-- 牌部分 -->
   <div class="cards-wrapper">
-    <div class="card-container" data-member="ashin" data-audio="../music/axin.MP3" data-image="https://via.placeholder.com/160x220?text=Ashin">
+    <div class="card-container" data-member="ashin" data-audio="../music/dog1.MP3" data-image="https://via.placeholder.com/160x220?text=Ashin">
       <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/axin.PNG');"></div>
+      <div class="back" style="background-image: url('../img/dog1.png');"></div>
   </div>
-  <div class="card-container" data-member="stone" data-audio="../music/shitou.MP3" data-image="https://via.placeholder.com/160x220?text=Monster">
+  <div class="card-container" data-member="stone" data-audio="../music/dog2.MP3" data-image="https://via.placeholder.com/160x220?text=Monster">
       <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/shitou.PNG');"></div>
+      <div class="back" style="background-image: url('../img/dog2.png');"></div>
   </div>
-  <div class="card-container" data-member="monster" data-audio="../music/guaishou.MP3" data-image="https://via.placeholder.com/160x220?text=Stone">
+  <div class="card-container" data-member="monster" data-audio="../music/dog3.MP3" data-image="https://via.placeholder.com/160x220?text=Stone">
       <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/guaishou.PNG');"></div>
+      <div class="back" style="background-image: url('../img/dog3.png');"></div>
   </div>
-  <div class="card-container" data-member="masa" data-audio="../music/masa.MP3" data-image="https://via.placeholder.com/160x220?text=Masa">
+  <div class="card-container" data-member="masa" data-audio="../music/dog4.MP3" data-image="https://via.placeholder.com/160x220?text=Masa">
       <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/nasa.PNG');"></div>
+      <div class="back" style="background-image: url('../img/dog4.png');"></div>
   </div>
-  <div class="card-container" data-member="guanyou" data-audio="../music/guanyou.MP3" data-image="https://via.placeholder.com/160x220?text=Ming">
+  <div class="card-container" data-member="guanyou" data-audio="../music/dog5.MP3" data-image="https://via.placeholder.com/160x220?text=Ming">
       <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/guanyou.PNG');"></div>
+      <div class="back" style="background-image: url('../img/dog5.png');"></div>
   </div>
 </div>
 
@@ -306,7 +306,7 @@
       <rect class="come" x="10" y="475.571" fill="#fefae9" width="180" height="4" />
     </svg>
     <!-- 最终图片容器 -->
-    <div class="final-image" id="final-image" style="background-image: url('../img/hezhao.PNG');"></div>
+    <div class="final-image" id="final-image" style="background-image: url('../img/image.png');"></div>
   <div class="happy">
     <img src="../img/HappyBirthday.png">
   </div>
@@ -381,7 +381,8 @@
       const audioSrc = $(this).data('audio');
       memberAudios[member] = new Audio(audioSrc);
   });
-  finalAudio = new Audio('../music/shengrikuaile.MP3'); // 最终播放的音乐
+  finalAudio = new Audio('../music/dogzhufu.MP3'); // 最终播放的音乐
+  finalAudio1 = new Audio('../music/happy.birthday.mp3'); // 最终播放的音乐
 
   // 点击翻牌
   $('.card-container').on('click', function () {
@@ -433,6 +434,7 @@
               $('#final-image').addClass('end'); // 显示最终图片
     
          }, 12000); // 等待牌移动完成   
+         finalAudio1.play();
         }
 
 
