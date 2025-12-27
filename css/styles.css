@@ -85,6 +85,8 @@ body :-ms-input-placeholder {
   position: absolute;
   inset: 0;
   pointer-events: none;
+  transform: translate(22px, 8px);
+  animation: moonFacePos 30s infinite;
 }
 
 .moon .moon-face::before {
@@ -160,6 +162,15 @@ body :-ms-input-placeholder {
   55% { transform: scaleX(0.95) scaleY(1.05); }
   75% { transform: scaleX(1.08) scaleY(0.78); }
   100% { transform: scaleX(1) scaleY(1); }
+}
+
+@keyframes moonFacePos {
+  0% { transform: translate(22px, 8px); }
+  25% { transform: translate(22px, 8px); }
+  50% { transform: translate(2px, 2px); }
+  75% { transform: translate(6px, 4px); }
+  95% { transform: translate(22px, 8px); }
+  100% { transform: translate(22px, 8px); }
 }
 
 

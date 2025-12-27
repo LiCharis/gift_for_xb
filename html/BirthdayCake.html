@@ -10,173 +10,470 @@
 </head>
 
 <style>
-  .cards-wrapper {
-            display: flex;
-            justify-content: space-evenly;
-            width: 100%;
-            padding: 20px 0;
-            position: absolute;
-            bottom: 250px;
-            z-index: 10;
-        }
+  body.bg {
+    background: url('../img/majiangbeijing.png') center center / cover no-repeat fixed;
+  }
 
-        .card-container {
-            width: 80px;
-            height: 110px;
-            position: relative;
-            perspective: 1000px;
-            margin: 0 10px;
-        }
+  .mj-scene {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
 
-        .cover, .back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transition: transform 0.5s ease-in-out;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
+  .mj-table-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 50% 48%, rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.28) 68%, rgba(0, 0, 0, 0.45)),
+      radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 56%);
+    pointer-events: none;
+  }
 
-        .cover {
-            background-image: linear-gradient(135deg, #1e90ff, #e4e7f1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 4rem;
-            font-weight: bold;
-            color: #fff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            transform: rotateY(0deg);
-        }
+  #countdown {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 50;
+    padding: 10px 12px;
+    min-width: 110px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
 
-        .back {
-            background-size: cover;
-            background-position: center;
-            transform: rotateY(-180deg);
-        }
+  .mj-seat {
+    position: absolute;
+    z-index: 20;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
 
-        .card-container.flipped .cover {
-            transform: rotateY(180deg);
-        }
+  .mj-seat.top {
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(920px, 92vw);
+  }
 
-        .card-container.flipped .back {
-            transform: rotateY(0deg);
-        }
+  .mj-seat.left {
+    left: 22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left top;
+    width: min(760px, 92vh);
+  }
 
-        /* 旋转并组合的动画 */
-        .card-container.combine {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 1.5s ease-in-out; /* 旋转和移动动画 */
-            z-index: 11;
-        }
+  .mj-seat.right {
+    right: 22px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right top;
+    width: min(760px, 92vh);
+  }
 
-        /* 最终图片容器 */
-        .final-image {
-          width: 50%; /* 屏幕宽度的50% */
-          aspect-ratio: 1205 / 647; /* 原始图片比例 */
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-size: cover;
-            background-position: center;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-            border: 3px solid rgba(255, 255, 255, 0.7);
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            z-index: 9;
-        }
+  .mj-tile {
+    width: 40px;
+    height: 56px;
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.0) 55%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(210, 235, 245, 0.88));
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
 
-        .final-image.show {
-            opacity: 1;
-        }
+  .mj-tile.back::after {
+    content: "";
+    position: absolute;
+    inset: 8px;
+    border-radius: 9px;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 55%),
+      linear-gradient(135deg, rgba(10, 90, 60, 0.85), rgba(20, 160, 120, 0.35));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+    opacity: 0.9;
+  }
 
-        .final-image.end {
-          opacity: 0;
-        }
+  .mj-tile.front {
+    display: grid;
+    place-items: center;
+    font-size: 18px;
+    color: rgba(20, 40, 40, 0.9);
+    font-weight: 700;
+    text-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  }
 
-         /* 原有样式调整 */
-         .happy {
-            margin-top: 250px; /* 留出牌的空间 */
-            text-align: center;
-        }
+  .mj-tile.front img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.16));
+  }
 
-        .button-style1, .button-style2 {
-            margin: 20px;
-        }
+  .mj-tile.front .mj-char {
+    line-height: 1;
+  }
+
+  .mj-tile.front.red {
+    color: rgba(170, 10, 20, 0.95);
+  }
+
+  .mj-self {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    width: min(980px, 94vw);
+    height: 350px;
+    z-index: 25;
+    pointer-events: none;
+  }
+
+  .mj-self-tiles {
+    position: absolute;
+    left: 50%;
+    bottom: 70px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+  }
+
+  .mj-wall {
+    position: absolute;
+    right: 80px;
+    bottom: 92px;
+    display: flex;
+    gap: 5px;
+    transform: rotate(-6deg);
+    opacity: 0.92;
+  }
+
+  .mj-draw-tile {
+    position: absolute;
+    right: 88px;
+    bottom: 110px;
+    width: 44px;
+    height: 58px;
+    border-radius: 12px;
+    background:
+      radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.0) 55%),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(210, 235, 245, 0.92));
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.32);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.92) rotate(-6deg);
+    z-index: 12;
+  }
+
+  .mj-draw-tile img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+    filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.22));
+  }
+
+  .mj-draw-tile.reveal {
+    opacity: 1;
+    animation: drawToHand 2200ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  .mj-draw-tile.win {
+    z-index: 65;
+    animation: selfDrawPop 760ms cubic-bezier(0.2, 0.9, 0.15, 1) forwards, winGlow 1200ms ease-in-out infinite;
+  }
+
+  @keyframes drawToHand {
+    0% { transform: translate3d(0, 0, 0) scale(0.92) rotate(-6deg); opacity: 0; }
+    10% { opacity: 1; }
+    70% { transform: translate3d(-460px, -36px, 0) scale(1.05) rotate(2deg); }
+    100% { transform: translate3d(-510px, -26px, 0) scale(1.08) rotate(0deg); opacity: 1; }
+  }
+
+  @keyframes selfDrawPop {
+    0% { transform: translate3d(-510px, -26px, 0) scale(1.08) rotate(0deg); }
+    65% { transform: translate3d(-560px, -130px, 0) scale(1.35) rotate(0deg); }
+    100% { transform: translate3d(-540px, -110px, 0) scale(1.28) rotate(0deg); }
+  }
+
+  @keyframes winGlow {
+    0%, 100% { box-shadow: 0 18px 38px rgba(0, 0, 0, 0.3); filter: none; }
+    50% { box-shadow: 0 22px 60px rgba(255, 214, 90, 0.55); filter: saturate(1.2); }
+  }
+
+  .mj-hand {
+    position: absolute;
+    bottom: 0;
+    width: 220px;
+    height: 160px;
+    border-radius: 80px 80px 56px 56px;
+    background:
+      radial-gradient(circle at 30% 28%, rgba(255, 235, 220, 0.75), rgba(255, 235, 220, 0) 60%),
+      radial-gradient(circle at 60% 48%, rgba(235, 185, 155, 0.55), rgba(235, 185, 155, 0) 55%),
+      linear-gradient(180deg, rgba(255, 225, 200, 0.98), rgba(220, 170, 140, 0.92));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    opacity: 0.92;
+    transform-origin: 50% 82%;
+  }
+
+  .mj-hand::before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 10px;
+    width: 186px;
+    height: 92px;
+    border-radius: 70px;
+    background:
+      radial-gradient(circle at 18% 55%, rgba(255, 245, 235, 0.55), rgba(255, 245, 235, 0) 60%),
+      linear-gradient(180deg, rgba(255, 245, 235, 0.28), rgba(255, 245, 235, 0));
+    opacity: 0.9;
+  }
+
+  .mj-hand::after {
+    content: "";
+    position: absolute;
+    top: 56px;
+    width: 84px;
+    height: 64px;
+    border-radius: 40px;
+    background:
+      radial-gradient(circle at 35% 35%, rgba(255, 235, 220, 0.78), rgba(255, 235, 220, 0) 62%),
+      linear-gradient(180deg, rgba(245, 200, 175, 0.92), rgba(210, 155, 125, 0.86));
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    opacity: 0.95;
+  }
+
+  .mj-hand.left {
+    left: 40px;
+    transform: rotate(8deg);
+    animation: idleHands 6.8s ease-in-out infinite;
+  }
+
+  .mj-hand.right {
+    right: 40px;
+    transform: rotate(-10deg);
+    animation: idleHands 7.2s ease-in-out infinite;
+  }
+
+  .mj-hand.left::after {
+    right: 18px;
+    transform: rotate(-18deg);
+  }
+
+  .mj-hand.right::after {
+    left: 18px;
+    transform: rotate(18deg);
+  }
+
+  .mj-hand.left.assist {
+    animation: assistHand 1600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  @keyframes assistHand {
+    0% { transform: translate3d(0, 0, 0) rotate(8deg); }
+    40% { transform: translate3d(120px, -18px, 0) rotate(14deg); }
+    72% { transform: translate3d(90px, -10px, 0) rotate(10deg); }
+    100% { transform: translate3d(0, 0, 0) rotate(8deg); }
+  }
+
+  @keyframes idleHands {
+    0%, 70%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+    78% { transform: translateY(6px) rotate(calc(var(--r, 0deg) + 2.4deg)); }
+    86% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  }
+
+  .mj-hand.left { --r: 8deg; }
+  .mj-hand.right { --r: -10deg; }
+
+  .mj-hand.right.draw {
+    animation: drawHand 2200ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  @keyframes drawHand {
+    0% { transform: translate3d(0, 0, 0) rotate(-10deg); }
+    35% { transform: translate3d(-70px, -40px, 0) rotate(-18deg); }
+    70% { transform: translate3d(-160px, -30px, 0) rotate(-12deg); }
+    100% { transform: translate3d(-20px, 0, 0) rotate(-10deg); }
+  }
+
+  .cake-stage {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -48%);
+    z-index: 40;
+    pointer-events: none;
+    filter: drop-shadow(0 26px 70px rgba(0, 0, 0, 0.35));
+  }
+
+  #cake {
+    margin: 0 !important;
+    position: relative !important;
+  }
+
+  .velas {
+    margin-left: 0 !important;
+    left: 50%;
+    transform: translateX(-50%) translateY(-300px);
+  }
+
+  .mj-win {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.98);
+    z-index: 60;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .mj-win.show {
+    opacity: 1;
+    animation: winPop 680ms ease forwards;
+  }
+
+  @keyframes winPop {
+    0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  }
+
+  .mj-win .title {
+    font-size: 58px;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.96);
+    text-shadow: 0 18px 44px rgba(0, 0, 0, 0.45);
+  }
+
+  .mj-win .subtitle {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 800;
+    color: rgba(255, 214, 90, 0.95);
+    text-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+  }
+
+  .mj-scoreboard {
+    position: absolute;
+    left: 18px;
+    top: 18px;
+    z-index: 50;
+    padding: 12px 12px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: none;
+    min-width: 210px;
+    max-width: min(320px, calc(100vw - 36px));
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 0.92);
+    font-family: "Microsoft YaHei", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    transform-origin: left top;
+  }
+
+  .mj-scoreboard.show {
+    display: block;
+    animation: scorePop 520ms ease forwards;
+  }
+
+  @keyframes scorePop {
+    0% { transform: scale(0.92); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .mj-scoreboard .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 6px 4px;
+    font-size: 14px;
+  }
+
+  .mj-scoreboard .row strong {
+    font-weight: 800;
+  }
+
+  .mj-scoreboard .pos { color: rgba(255, 214, 90, 0.95); }
+  .mj-scoreboard .neg { color: rgba(255, 120, 140, 0.95); }
+
+  .happy, .button-style1, .button-style2, .bg-bubbles, .final-image {
+    display: none !important;
+  }
 </style>
 
 
 <body class="bg">
+  <div class="mj-scene">
+    <div class="mj-table-overlay"></div>
+    <div id="countdown">00:10</div>
 
-  <!-- 牌部分 -->
-  <div class="cards-wrapper">
-    <div class="card-container" data-member="ashin" data-audio="" data-image="https://via.placeholder.com/160x220?text=Ashin">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/bai.png');"></div>
-  </div>
-  <div class="card-container" data-member="stone" data-audio="" data-image="https://via.placeholder.com/160x220?text=Monster">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/bai.png');"></div>
-  </div>
-  <div class="card-container" data-member="monster" data-audio="" data-image="https://via.placeholder.com/160x220?text=Stone">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/bai.png');"></div>
-  </div>
-  <div class="card-container" data-member="masa" data-audio="" data-image="https://via.placeholder.com/160x220?text=Masa">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/bai.png');"></div>
-  </div>
-  <div class="card-container" data-member="guanyou" data-audio="" data-image="https://via.placeholder.com/160x220?text=Ming">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/fa.png');"></div>
-  </div>
-    <div class="card-container" data-member="ashin" data-audio="" data-image="https://via.placeholder.com/160x220?text=Ashin">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/fa.png');"></div>
-  </div>
-  <div class="card-container" data-member="stone" data-audio="" data-image="https://via.placeholder.com/160x220?text=Monster">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/fa.png');"></div>
-  </div>
-  <div class="card-container" data-member="monster" data-audio="" data-image="https://via.placeholder.com/160x220?text=Stone">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/fa.png');"></div>
-  </div>
-  <div class="card-container" data-member="masa" data-audio="" data-image="https://via.placeholder.com/160x220?text=Masa">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/zhong.png');"></div>
-  </div>
-  <div class="card-container" data-member="guanyou" data-audio="" data-image="https://via.placeholder.com/160x220?text=Ming">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/zhong.png');"></div>
-  </div>
-    <div class="card-container" data-member="ashin" data-audio="" data-image="https://via.placeholder.com/160x220?text=Ashin">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/zhong.png');"></div>
-  </div>
-  <div class="card-container" data-member="stone" data-audio="" data-image="https://via.placeholder.com/160x220?text=Monster">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/zhong.png');"></div>
-  </div>
-  <div class="card-container" data-member="monster" data-audio="" data-image="https://via.placeholder.com/160x220?text=Stone">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/ertong.png');"></div>
-  </div>
-  <div class="card-container" data-member="masa" data-audio="" data-image="https://via.placeholder.com/160x220?text=Masa">
-      <div class="cover">?</div>
-      <div class="back" style="background-image: url('../img/ertong.png');"></div>
-  </div>
-</div>
+    <div class="mj-scoreboard" id="scoreboard">
+      <div class="row"><strong>阿白</strong><strong class="pos">+100</strong></div>
+      <div class="row"><span>玩家一</span><span class="neg">-35</span></div>
+      <div class="row"><span>玩家二</span><span class="neg">-35</span></div>
+      <div class="row"><span>玩家三</span><span class="neg">-30</span></div>
+    </div>
 
-  <div>
+    <div class="mj-seat top" aria-hidden="true">
+      <div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div>
+    </div>
+    <div class="mj-seat left" aria-hidden="true">
+      <div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div>
+    </div>
+    <div class="mj-seat right" aria-hidden="true">
+      <div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div>
+    </div>
+
+    <div class="mj-self" aria-hidden="true">
+      <div class="mj-wall">
+        <div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div><div class="mj-tile back"></div>
+      </div>
+      <div class="mj-draw-tile" id="drawTile"><img src="../img/zhong.png" alt=""></div>
+      <div class="mj-self-tiles" id="selfTiles">
+        <div class="mj-tile front"><span class="mj-char">一万</span></div>
+        <div class="mj-tile front"><span class="mj-char">二万</span></div>
+        <div class="mj-tile front"><span class="mj-char">三万</span></div>
+        <div class="mj-tile front"><span class="mj-char">四万</span></div>
+        <div class="mj-tile front"><span class="mj-char">五万</span></div>
+        <div class="mj-tile front"><span class="mj-char">六万</span></div>
+        <div class="mj-tile front"><span class="mj-char">七万</span></div>
+        <div class="mj-tile front"><span class="mj-char">八万</span></div>
+        <div class="mj-tile front"><span class="mj-char">九万</span></div>
+        <div class="mj-tile front red"><img src="../img/fa.png" alt=""></div>
+        <div class="mj-tile front"><img src="../img/bai.png" alt=""></div>
+        <div class="mj-tile front"><span class="mj-char">东</span></div>
+        <div class="mj-tile front"><span class="mj-char">東</span></div>
+      </div>
+      <div class="mj-hand left" id="leftHand"></div>
+      <div class="mj-hand right" id="rightHand"></div>
+    </div>
+
+    <div class="mj-win" id="winOverlay">
+      <div class="title">新年首胡</div>
+      <div class="subtitle">红中自摸 · 妙手回春</div>
+    </div>
+
+    <div class="cake-stage">
     <div class="velas">
       <div class="fuego"></div>
       <div class="fuego"></div>
@@ -341,161 +638,135 @@
       </path>
       <rect class="come" x="10" y="475.571" fill="#fefae9" width="180" height="4" />
     </svg>
-    <!-- 最终图片容器 -->
-    <div class="final-image" id="final-image" style="background-image: url('../img/majiangbeijing.png');"></div>
-  <div class="happy">
-    <img src="../img/HappyBirthday.png">
-  </div>
-  <div class="button-style1">
-    <a href="Memories.html" class="lk1">
-      <div class="link1">
-        <div class="bt1">
-          太喜欢了
-        </div>
-      </div>
-    </a>
-  </div>
-
-
-  <div class="button-style2">
-    <a class="lk2">
-      <div class="link2">
-        <div class="bt1">
-          我很讨厌
-        </div>
-      </div>
-    </a>
-  </div>
-  <ul class="bg-bubbles">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-  </ul>
+    </div>
   <script src='../js/jquery.js'></script>
   <!-- <audio src="../music/happy.birthday.mp3" autoplay="autoplay" loop="loop"></audio> -->
 </body>
 
 <script>
-  function $(v) { return document.getElementById(v); }
-  function view(id) { $(id).style.display = "block"; }
-  function hide(id) { $(id).style.display = "none"; }
+  function byId(v) { return document.getElementById(v); }
+  function view(id) { byId(id).style.display = "block"; }
+  function hide(id) { byId(id).style.display = "none"; }
   function vide() {//点击图片显示视频
     hide("pic"); view("play");
   }
 </script>
-</div>
-</div>
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="fireworks.js"></script>
 
 <script>
+  function formatTime(totalSeconds) {
+    var m = Math.floor(totalSeconds / 60);
+    var s = totalSeconds % 60;
+    return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+  }
 
-  // 原有烟花效果（假设fireworks.js可用）
-  $('.bg').fireworks({
-          sound: false,
-          opacity: 1,
-          width: '100%',
-          height: '100%'
-       });
+  function playCheer() {
+    try {
+      var ac = new (window.AudioContext || window.webkitAudioContext)();
+      var t0 = ac.currentTime;
 
-
-  let flippedCount = 0;
-  const totalCards = 14;
-  const memberAudios = {};
-  let finalAudio = null;
-
-  // 初始化音频
-  $('.card-container').each(function () {
-      const member = $(this).data('member');
-      const audioSrc = $(this).data('audio');
-      memberAudios[member] = new Audio(audioSrc);
-  });
-  finalAudio = new Audio(''); // 最终播放的音乐
-  finalAudio1 = new Audio('../music/happy.birthday.mp3'); // 最终播放的音乐
-
-  // 点击翻牌
-  $('.card-container').on('click', function () {
-      if (!$(this).hasClass('flipped')) {
-          $(this).addClass('flipped');
-          const member = $(this).data('member');
-          memberAudios[member].play();
-          flippedCount++;
-
-          if (flippedCount === totalCards) {
-            setTimeout(combineCards, 1000);
-          }
-      }
-  });
-
-
-
-    // 旋转并组合成一张图片
-    function combineCards() {
-            $('.card-container').each(function (index) {
-                $(this).addClass('combine');
-                // 添加旋转效果
-                $(this).css({
-                    'transform': `translate(-50%, -50%) rotate(${360 * (index + 1)}deg)`,
-                    'transition': 'all 1.5s ease-in-out'
-                });
-            });
-            
-            finalAudio.play();
-            $('.card-container').css('opacity', '0'); // 隐藏所有牌
-            setTimeout(() => {
-              $('#final-image').addClass('show'); // 显示最终图片
-            },1000)
-          
-
-            setTimeout(() => {
-       
-            $('.bg').fireworks({
-            sound: true,
-            opacity: 0,
-            width: '100%',
-            height: '100%'
-                    });
-              }, 1500); // 等待牌移动完成   
-
-
-
-            setTimeout(() => {
-              $('#final-image').addClass('end'); // 显示最终图片
-    
-         }, 12000); // 等待牌移动完成   
-         finalAudio1.play();
+      function burst(at, dur, vol, freq) {
+        var bufferSize = Math.floor(ac.sampleRate * dur);
+        var buffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
+        var data = buffer.getChannelData(0);
+        for (var i = 0; i < bufferSize; i++) {
+          var x = i / bufferSize;
+          data[i] = (Math.random() * 2 - 1) * (1 - x) * 0.9;
         }
+        var src = ac.createBufferSource();
+        src.buffer = buffer;
+        var filter = ac.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(freq, at);
+        filter.Q.setValueAtTime(1.2, at);
+        var gain = ac.createGain();
+        gain.gain.setValueAtTime(0.0001, at);
+        gain.gain.exponentialRampToValueAtTime(vol, at + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, at + dur);
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(ac.destination);
+        src.start(at);
+        src.stop(at + dur);
+      }
 
+      for (var i = 0; i < 10; i++) {
+        burst(t0 + i * 0.06, 0.12, 0.5, 700 + Math.random() * 900);
+      }
 
+      var osc = ac.createOscillator();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, t0);
+      osc.frequency.exponentialRampToValueAtTime(320, t0 + 0.35);
+      var og = ac.createGain();
+      og.gain.setValueAtTime(0.0001, t0);
+      og.gain.exponentialRampToValueAtTime(0.12, t0 + 0.02);
+      og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
+      osc.connect(og);
+      og.connect(ac.destination);
+      osc.start(t0);
+      osc.stop(t0 + 0.55);
+    } catch (e) {
+    }
+  }
 
-  // // 牌紧贴在一起
-  // function moveCardsTogether() {
-  //     $('.card-container').each(function (index) {
-  //         $(this).addClass('move-together');
-  //         $(this).css({'left': `calc(50% + ${(index - 2) * 160}px)`})// 移除间距}); // 等距排列
-  //     });
+  function startFireworks() {
+    try {
+      if (!window.jQuery) return;
+      window.jQuery('.bg').fireworks({
+        sound: false,
+        opacity: 1,
+        width: '100%',
+        height: '100%'
+      });
+    } catch (e) {
+    }
+  }
 
-  //     finalAudio.play();
+  function runSequence() {
+    var countdownEl = document.getElementById('countdown');
+    var drawTile = document.getElementById('drawTile');
+    var leftHand = document.getElementById('leftHand');
+    var rightHand = document.getElementById('rightHand');
+    var winOverlay = document.getElementById('winOverlay');
+    var scoreboard = document.getElementById('scoreboard');
 
-  //     setTimeout(() => {
-  //         // 原有烟花效果（假设fireworks.js可用）
-  //         $('.bg').fireworks({
-  //         sound: true,
-  //         opacity: 0,
-  //         width: '100%',
-  //         height: '100%'
-  //      });
-  //     }, 1500); // 等待牌移动完成
-  // }
+    var total = 10;
+    var startedDraw = false;
+    var won = false;
+    countdownEl.textContent = formatTime(total);
 
- 
+    var timer = setInterval(function () {
+      total -= 1;
+      if (total < 0) total = 0;
+      countdownEl.textContent = formatTime(total);
+
+      if (!startedDraw && total === 3) {
+        startedDraw = true;
+        if (leftHand) leftHand.classList.add('assist');
+        rightHand.classList.add('draw');
+        setTimeout(function () {
+          drawTile.classList.add('reveal');
+        }, 260);
+      }
+
+      if (!won && total === 0) {
+        won = true;
+        clearInterval(timer);
+        drawTile.classList.add('win');
+        winOverlay.classList.add('show');
+        scoreboard.classList.add('show');
+        playCheer();
+        startFireworks();
+      }
+    }, 1000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runSequence);
+  } else {
+    runSequence();
+  }
 </script>
 
 
