@@ -20,12 +20,46 @@
   body {
     margin: 0;
     overflow: hidden;
+    background: #000;
+  }
 
-    background-image: url(https://img0.baidu.com/it/u=3660625779,3792745894&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=281);
+  #bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    pointer-events: none;
+    animation: videoPan 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes videoPan {
+    0%   { transform: translate(-50%, -50%); }
+    50%  { transform: translate(-35%, -50%); }
+    100% { transform: translate(-65%, -50%); }
   }
 
   canvas {
-    position: absolute;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+  }
+
+  #c1 {
+    display: none;
+  }
+
+  #c2 {
+    z-index: 2;
+  }
+
+  #c3 {
+    z-index: 3;
+    opacity: 0.78;
   }
 
   h1 {
@@ -74,11 +108,12 @@
 
 <body>
 
-  <canvas></canvas>
-  <canvas></canvas>
-  <canvas></canvas>
-  <!-- <h1 style="background-color: black;" data-spotlight="はじめまして、どうぞよろしくお願いします"> はじめまして、どうぞよろしくお願いします -->
-  </h1>
+  <video id="bg-video" autoplay muted loop playsinline preload="auto">
+    <source src="memory.mp4" type="video/mp4">
+  </video>
+  <canvas id="c1"></canvas>
+  <canvas id="c2"></canvas>
+  <canvas id="c3"></canvas>
   
   <script>
 
@@ -226,7 +261,7 @@
     c2.width = c3.width = window.innerWidth;
     c2.height = c3.height = window.innerHeight;
     ctx1.fillStyle = '#000';
-    const text = '健苗,祝你生日快乐！'
+    const text = '    '
     let textWidth = 99999999;
 
     while (textWidth > window.innerWidth) {
@@ -255,9 +290,10 @@
 
     // ANIMATION LOOP
     (function loop() {
-      ctx2.fillStyle = "rgba(0, 0, 0, .1)";
+      ctx2.globalCompositeOperation = 'destination-out';
+      ctx2.fillStyle = 'rgba(0, 0, 0, 0.18)';
       ctx2.fillRect(0, 0, c2.width, c2.height);
-      //ctx2.clearRect(0, 0, c2.width, c2.height);
+      ctx2.globalCompositeOperation = 'lighter';
       counter += 1;
 
       if (counter % 15 === 0) {
